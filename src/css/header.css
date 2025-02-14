@@ -1,9 +1,11 @@
 .header {
   padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.nav {
+.header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .nav-logo {
   display: inline-flex;
@@ -16,6 +18,10 @@
   justify-content: flex-end;
   gap: 40px;
 }
+
+.nav-item {
+  cursor: pointer;
+}
 .nav-link {
   position: relative;
   display: block;
@@ -25,7 +31,7 @@
 }
 .nav-link:hover,
 .nav-link:focus {
-  color: #747bff;
+  color: #ff6b0a;
 }
 .nav-link::after {
   content: '';
@@ -40,5 +46,5 @@
   animation: stretch 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 200ms both;
 }
 .nav-link.active::after {
-  background: #747bff;
+  background: #ff6b0a;
 }
