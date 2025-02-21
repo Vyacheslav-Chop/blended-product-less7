@@ -1,3 +1,3 @@
-export const refs = {
-  productsList: document.querySelector('.products'),
-};
+//Обʼєкт з посиланнями на ДОМ елементи
+
+export const refs = {};
