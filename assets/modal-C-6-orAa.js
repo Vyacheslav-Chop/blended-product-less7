@@ -1,0 +1,21 @@
+import{i as p,a as h}from"./vendor-CG2pNq4b.js";const s=12;let l=1;const d={homeProducts:document.querySelector('.products[data-page="home"]'),wishListProducts:document.querySelector('.products[data-page="wishlist"]'),homeCategories:document.querySelector(".categories"),notFoundDiv:document.querySelector(".not-found"),form:document.querySelector(".search-form"),modalProduct:document.querySelector(".modal-product"),modal:document.querySelector(".modal"),loadMoreBtn:document.querySelector(".load-more-btn")},{loadMoreBtn:m,homeProducts:I}=d;async function a(t){const{data:o}=await h.get(t);return o}function u(t){p.error({message:t,position:"bottomRight",backgroundColor:"#ef4040",messageColor:"#ffffff",maxWidth:"400"})}function T(t){t.innerHTML=""}function U(t,o){const e=t.querySelector(".categories__btn--active");e&&e.classList.remove("categories__btn--active"),o.classList.add("categories__btn--active")}function _(t){p.info({message:t,position:"bottomCenter",maxWidth:"400"})}function x(){const e=document.querySelector(".products__item").getBoundingClientRect().height;window.scrollBy({top:e*1.5,behavior:"smooth"})}function y(t){return t.map(o=>`<li>${o}</li>`).join("")}function $(){m.hidden=!1}function b(){m.hidden=!0}function P(t,o){console.log(`Current page: ${o}, Total: ${t}`),o*12>=t?(_("There are no more products to load at the moment."),b(),console.log("No more products to load. Button hidden.")):($(),console.log("More products available. Button shown."))}function S(t,o){t.insertAdjacentHTML("beforeend",k(o))}async function B(t=1){const o=(t-1)*s,e=`https://dummyjson.com/products?limit=${s}&skip=${o}`;return a(e)}async function w(){return a("https://dummyjson.com/products/category-list")}async function H(t,o=1){const e="https://dummyjson.com/products/category/",r=(o-1)*s,c=`${e}${t}?limit=${s}&skip=${r}`;return a(c)}async function D(t,o=1){const e="https://dummyjson.com/products/search",r=(o-1)*s,c=`${e}?q=${t}&limit=${s}&skip=${r}`;return a(c)}async function L(t){const e=`https://dummyjson.com/products/${t}`;return a(e)}const{homeCategories:M,homeProducts:C,modalProduct:v}=d;function k(t){return t.map(({id:o,title:e,brand:r,category:c,price:n,thumbnail:i})=>`
+  <li class="products__item" data-id="${o}">
+    <img class="products__image" src="${i}" alt="${e}"/>
+    <p class="products__title">${e}</p>
+    <p class="products__brand"><span class="products__brand--bold">Brand:</span>${r}</p>
+    <p class="products__category">Category: ${c}</p>
+    <p class="products__price">Price: $${n}</p>
+ </li>`).join("")}async function F(){try{const{products:t,total:o}=await B(l);S(C,t),P(o,l)}catch(t){console.error("Error while fetching products:",t),u("Something went wrong while loading products. Please try again later.")}}function q(t){return t.map(o=>`
+    <li class="categories__item">
+   <button class="categories__btn" type="button">${o}</button>
+ </li>`).join("")}async function N(){try{const o=["All",...await w()];M.innerHTML=q(o)}catch{u("Something went wrong while loading categories. Please try again later.")}}function j(t){const{title:o,description:e,price:r,tags:c,images:n,shippingInformation:i,returnPolicy:f}=t;return`<img class="modal-product__img" src="${(n==null?void 0:n[0])||""}" alt="${o}" />
+      <div class="modal-product__content">
+        <p class="modal-product__title">${o}</p>
+        <ul class="modal-product__tags">${y(c)}</ul>
+        <p class="modal-product__description">${e}</p>
+        <p class="modal-product__shipping-information">Shipping: ${i}</p>
+        <p class="modal-product__return-policy">Return Policy: ${f}</p>
+        <p class="modal-product__price">Price: $${r}</p>
+        <button class="modal-product__buy-btn" type="button">Buy</button>
+      </div>`}async function A(t){try{const o=await L(t);v.innerHTML=j(o)}catch{u("Failed to load product information. Please try again later.")}}const{modal:g}=d;function E(){g.classList.add("modal--is-open")}function W(){g.classList.remove("modal--is-open")}function z(t){const o=t.target.closest(".products__item");if(!o)return;const e=Number(o.dataset.id);e&&(A(e),E())}export{H as a,S as b,T as c,P as d,D as e,B as f,W as g,b as h,_ as i,x as j,d as k,N as l,z as o,F as r,u as s,U as u};
+//# sourceMappingURL=modal-C-6-orAa.js.map

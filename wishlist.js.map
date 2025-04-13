@@ -1,1 +1,1 @@
-{"version":3,"file":"wishlist.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"wishlist.js","sources":["../src/wishlist.js"],"sourcesContent":["//Логіка сторінки Wishlist\n\nimport { openProductModal } from './js/modal';\n\nopenProductModal();\naddToWishList;\n"],"names":["openProductModal"],"mappings":"kHAIAA,IACA"}
