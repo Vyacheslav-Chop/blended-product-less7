@@ -90,10 +90,13 @@ export async function searchProduct(event) {
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const addToCartBtn = ev.target.closest('.modal-product__btn--cart');
+  const addToWishList = ev.target.closest('modal-product__btn--wishlist');
   if (closeBtn) {
     closeModal();
   } else if (addToCartBtn) {
     addToCard();
+  } else {
+    addToWish();
   }
 }
 // показати більше
