@@ -33,7 +33,7 @@ export function productsMarkUp(products) {
 export async function renderProducts() {
   try {
     const { products, total } = await fetchProducts(currentPage);
-    appendProducts(products);
+    appendProducts(homeProducts, products);
     checkEndOfCollection(total, currentPage);
 
     // homeProducts.style.position = 'relative';
