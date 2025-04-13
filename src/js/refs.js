@@ -1,6 +1,7 @@
 //Обʼєкт з посиланнями на ДОМ елементи
 export const refs = {
   homeProducts: document.querySelector('.products[data-page="home"]'),
+  wishListProducts: document.querySelector('.products[data-page="wishlist"]'),
   homeCategories: document.querySelector('.categories'),
   notFoundDiv: document.querySelector('.not-found'),
   form: document.querySelector('.search-form'),
@@ -8,5 +9,3 @@ export const refs = {
   modal: document.querySelector('.modal'),
   loadMoreBtn: document.querySelector('.load-more-btn'),
 };
-
- 
