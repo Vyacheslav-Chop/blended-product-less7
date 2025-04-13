@@ -14,10 +14,10 @@ import {
   hideLoadMoreBtn,
   checkEndOfCollection,
   appendProducts,
-  showLoadMoreBtn
+  showLoadMoreBtn,
 } from './helpers';
 import { renderProducts } from './render-function';
-import { closeModal } from './modal';
+import { closeModal, addToCard } from './modal';
 
 const { homeCategories, homeProducts, notFoundDiv, form } = refs;
 let query = '';
@@ -78,7 +78,6 @@ export async function searchProduct(event) {
     }
     appendProducts(products);
     checkEndOfCollection(total, currentPage);
-    showLoadMoreBtn();
   } catch (error) {
     console.error('An error occurred while searching for products:', error);
     showErrorMessage(
@@ -91,7 +90,12 @@ export async function searchProduct(event) {
 // закриття модалки кнопкою
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
-  if (closeBtn) closeModal();
+  const addToCartBtn = ev.target.closest('.modal-product__btn--cart');
+  if (closeBtn) {
+    closeModal();
+  } else if (addToCartBtn) {
+    addToCard();
+  }
 }
 // показати більше
 export async function handleLoadMore(ev) {

@@ -36,8 +36,8 @@ export async function renderProducts() {
     appendProducts(products);
     checkEndOfCollection(total, currentPage);
 
-    homeProducts.style.position = 'relative';
-    homeProducts.style.paddingBottom = '60px';
+    // homeProducts.style.position = 'relative';
+    // homeProducts.style.paddingBottom = '60px';
   } catch (error) {
     console.error('Error while fetching products:', error); // Додатковий дебаг
     showErrorMessage(

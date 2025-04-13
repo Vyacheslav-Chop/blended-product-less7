@@ -50,7 +50,7 @@ export function smoothScroll() {
   const heightItem = rect.height;
 
   window.scrollBy({
-    top: heightItem * 1.75,
+    top: heightItem * 1.5,
     behavior: 'smooth',
   });
 }

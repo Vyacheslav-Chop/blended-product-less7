@@ -2,6 +2,7 @@
 import { renderProductById } from "./render-function";
 import { refs } from "./refs";
 const { modal } = refs;
+import { STORAGE_KEYS } from "./constants";
 // відкриття модалки
 export function openModal() {
   modal.classList.add('modal--is-open');
@@ -22,4 +23,8 @@ export function openProductModal(event) {
 
   renderProductById(currentId);
   openModal();
+}
+
+export function addToCard() {
+
 }
