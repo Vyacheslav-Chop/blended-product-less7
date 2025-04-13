@@ -9,9 +9,9 @@ const { loadMoreBtn, homeProducts } = refs;
 
 //Допоміжні функції
 // функція для запиту через бібліотеку
-export async function fetchData(url) {  
-    const { data } = await axios.get(url);
-    return data;  
+export async function fetchData(url) {
+  const { data } = await axios.get(url);
+  return data;
 }
 // функція для виведення повідомлення про помилку через бібліотеку
 export function showErrorMessage(message) {
@@ -81,6 +81,6 @@ export function checkEndOfCollection(total, currentPage) {
   }
 }
 // додавання DOM елементів
-export function appendProducts(products) {
-  homeProducts.insertAdjacentHTML('beforeend', productsMarkUp(products));
+export function appendProducts(element, products) {
+  element.insertAdjacentHTML('beforeend', productsMarkUp(products));
 }

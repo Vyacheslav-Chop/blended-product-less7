@@ -45,7 +45,7 @@ export async function showProducts(ev) {
     if (products.length === 0) {
       notFoundDiv.classList.add('not-found--visible');
     } else {
-      appendProducts(products);
+      appendProducts(homeProducts, products);
 
       checkEndOfCollection(total, currentPage);
     }
@@ -76,7 +76,7 @@ export async function searchProduct(event) {
       showErrorMessage('Unfortunately, no results were found for this query.');
       return;
     }
-    appendProducts(products);
+    appendProducts(homeProducts, products);
     checkEndOfCollection(total, currentPage);
   } catch (error) {
     console.error('An error occurred while searching for products:', error);
@@ -115,7 +115,7 @@ export async function handleLoadMore(ev) {
     if (products.length === 0) {
       showInfoMessage('No products found matching your search criteria.');
     } else {
-      appendProducts(products);
+      appendProducts(homeProducts, products);
       setTimeout(() => smoothScroll());
       checkEndOfCollection(total, currentPage);
     }
