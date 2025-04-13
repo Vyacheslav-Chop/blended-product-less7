@@ -5,8 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/blended-product-less7/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home page</title>
-    <script type="module" crossorigin src="/blended-product-less7/assets/styles-BK7AYJoX.js"></script>
-    <link rel="stylesheet" crossorigin href="/blended-product-less7/assets/styles-CwHyMCDG.css">
+    <script type="module" crossorigin src="/blended-product-less7/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/blended-product-less7/assets/styles-DxcMbWHA.js">
+    <link rel="modulepreload" crossorigin href="/blended-product-less7/assets/vendor-CG2pNq4b.js">
+    <link rel="stylesheet" crossorigin href="/blended-product-less7/assets/styles-Dx33qtQH.css">
+    <link rel="stylesheet" crossorigin href="/blended-product-less7/assets/vendor-DnveWo0P.css">
   </head>
   <body>
     <header class="header">
@@ -63,7 +66,9 @@
       <section class="section">
         <div class="container">
           <ul class="categories"></ul>
-          <ul class="products"></ul>
+          <ul class="products" data-page="home">
+            <button type="button" class="load-more-btn" hidden>Load more</button>
+          </ul>
           <div class="not-found">
             <div class="not-found__icon">
               <svg
