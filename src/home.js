@@ -2,7 +2,6 @@
 import {
   renderProducts,
   renderCategories,
-  renderLoadMoreBtn,
 } from './js/render-function';
 import { refs } from './js/refs';
 import {
@@ -18,7 +17,6 @@ const { homeCategories, form, homeProducts, modal, loadMoreBtn } = refs;
 // логіка для початкової сторінки
 renderProducts();
 renderCategories();
-renderLoadMoreBtn();
 
 homeCategories.addEventListener('click', showProducts);
 form.addEventListener('submit', searchProduct);
