@@ -14,7 +14,6 @@ import {
   hideLoadMoreBtn,
   checkEndOfCollection,
   appendProducts,
-  showLoadMoreBtn,
 } from './helpers';
 import { renderProducts } from './render-function';
 import { closeModal, addToCard } from './modal';
@@ -106,7 +105,11 @@ export async function handleLoadMore(ev) {
     if (query) {
       data = await fetchSearchResults(query, currentPage);
     } else if (category) {
-      data = await fetchCategoryProducts(category, currentPage);
+      if (category === 'All') {
+        data = await fetchProducts(currentPage);
+      } else {
+        data = await fetchCategoryProducts(category, currentPage);
+      }
     } else {
       data = await fetchProducts(currentPage);
     }

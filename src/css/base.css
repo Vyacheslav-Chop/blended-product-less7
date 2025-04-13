@@ -25,13 +25,16 @@
   text-align: center !important;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .load-more-btn {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
   border-radius: 30px;
   padding: 8px 16px;
+  width: 250px;
   background: #ff6b0a;
   font-weight: 600;
   font-size: 16px;
@@ -40,11 +43,12 @@
   color: #ffffff;
   border: none;
   transition: all 300ms ease;
+  margin: 0 auto;
 }
 
 .load-more-btn:hover,
 .load-more-btn:focus {
   background-color: #e05a00;
-  transform: translateX(-50%) scale(1.05);
+  transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(255, 107, 10, 0.3);
 }
