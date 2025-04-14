@@ -13,7 +13,13 @@ import {
 } from './helpers';
 import { currentPage } from './constants';
 
-const { homeCategories, homeProducts, modalProduct, addToCartBtn } = refs;
+const {
+  homeCategories,
+  homeProducts,
+  modalProduct,
+  addToCartBtn,
+  addToWishListBtn,
+} = refs;
 // функції для рендеру товарів
 export function productsMarkUp(products) {
   return products
@@ -35,7 +41,6 @@ export async function renderProducts() {
     const { products, total } = await fetchProducts(currentPage);
     appendProducts(homeProducts, products);
     checkEndOfCollection(total, currentPage);
-    
   } catch (error) {
     console.error('Error while fetching products:', error); // Додатковий дебаг
     showErrorMessage(
@@ -98,10 +103,10 @@ export async function renderProductById(id) {
   try {
     const product = await fetchProductById(id);
     console.log(product);
-    
 
     modalProduct.innerHTML = createProductById(product);
-    addToCartBtn.dataset.id = product.id;    
+    addToCartBtn.dataset.id = product.id;
+    addToWishListBtn.dataset.id = product.id;
   } catch (error) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'

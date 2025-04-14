@@ -1,4 +1,4 @@
-// Функції, які передаються колбеками в addEventListners
+// Функції, які передаються колбеками в addEventListner
 import { refs } from './refs';
 import {
   fetchProducts,
@@ -16,7 +16,12 @@ import {
   appendProducts,
 } from './helpers';
 import { renderProducts } from './render-function';
-import { closeModal, handleAddToCart } from './modal';
+import {
+  closeModal,
+  handleAddToCart,
+  handleAddToWishList,
+  handleRemoveFromWishList,
+} from './modal';
 import { STORAGE_KEYS } from './constants';
 
 const { homeCategories, homeProducts, notFoundDiv, form } = refs;
@@ -92,13 +97,22 @@ export async function searchProduct(event) {
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const addToCartBtn = ev.target.closest('.modal-product__btn--cart');
-  const addToWishList = ev.target.closest('modal-product__btn--wishlist');
+  const addToWishListBtn = ev.target.closest('.modal-product__btn--wishlist');
   if (closeBtn) {
     closeModal();
+    return;
   } else if (addToCartBtn) {
-    handleAddToCart(ev)
-  } else  {
-    // addToWish();
+    handleAddToCart(ev);
+    return;
+  } else if (addToWishListBtn) {
+    if (addToWishListBtn.textContent === 'Add to Wishlist') {
+      handleAddToWishList(ev);
+      return;
+    } else if (addToWishListBtn.textContent === 'Remove from Wishlist') {
+      handleRemoveFromWishList(ev);
+      return;
+    }
+    return;
   }
 }
 // показати більше
@@ -136,5 +150,3 @@ export async function handleLoadMore(ev) {
     showErrorMessage('Oops! Something went wrong. Please try again later.');
   }
 }
-
-

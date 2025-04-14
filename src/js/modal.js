@@ -1,7 +1,7 @@
 //Описана робота модалки - відкриття закриття і все що з модалкою повʼязано
 import { renderProductById } from './render-function';
 import { refs } from './refs';
-const { modal } = refs;
+const { modal, addToWishListBtn } = refs;
 import { handleModalClick } from './handlers';
 import { STORAGE_KEYS } from './constants';
 import { updateLocalStorage } from './storage';
@@ -42,10 +42,35 @@ export function handleAddToCart(ev) {
 
   if (index === -1) {
     idAllProducts.push(productId);
-    
+
     console.log(idAllProducts);
-    
   }
   updateLocalStorage(cart, idAllProducts);
-  
 }
+export function handleAddToWishList(ev) {
+  const productId = Number(ev.target.dataset.id);
+  console.log(productId);
+
+  const wishlistItems = JSON.parse(localStorage.getItem(wishlist)) ?? [];
+  console.log(wishlistItems);
+
+  const index = wishlistItems.findIndex(id => id === productId);
+
+  if (index === -1) {
+    wishlistItems.push({ id: productId });
+    console.log(wishlistItems);
+
+    ev.targettBtn.textContent = 'Remove from Wishlist';
+    console.log(wishlistItems);
+    updateLocalStorage(wishlist, wishlistItems);
+  } else {
+    // Видаляємо з wishlist
+    const updated = wishlistItems.filter(id => id !== productId);
+    updateLocalStorage(wishlist, updated);
+    ev.target.textContent = 'Add to Wishlist';
+    return;
+  }
+
+  updateLocalStorage(wishlist, wishlistItems);
+}
+export function handleRemoveFromWishList(ev) {}
