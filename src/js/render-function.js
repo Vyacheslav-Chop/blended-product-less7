@@ -13,7 +13,7 @@ import {
 } from './helpers';
 import { currentPage } from './constants';
 
-const { homeCategories, homeProducts, modalProduct } = refs;
+const { homeCategories, homeProducts, modalProduct, addToCartBtn } = refs;
 // функції для рендеру товарів
 export function productsMarkUp(products) {
   return products
@@ -97,8 +97,11 @@ function createProductById(product) {
 export async function renderProductById(id) {
   try {
     const product = await fetchProductById(id);
+    console.log(product);
+    
 
     modalProduct.innerHTML = createProductById(product);
+    addToCartBtn.dataset.id = product.id;    
   } catch (error) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'

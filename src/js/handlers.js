@@ -16,9 +16,11 @@ import {
   appendProducts,
 } from './helpers';
 import { renderProducts } from './render-function';
-import { closeModal, addToCard } from './modal';
+import { closeModal, handleAddToCart } from './modal';
+import { STORAGE_KEYS } from './constants';
 
 const { homeCategories, homeProducts, notFoundDiv, form } = refs;
+const { cart, wishlist } = STORAGE_KEYS;
 let query = '';
 let currentPage = 1;
 let category = '';
@@ -94,14 +96,18 @@ export function handleModalClick(ev) {
   if (closeBtn) {
     closeModal();
   } else if (addToCartBtn) {
-    addToCard();
-  } else {
-    addToWish();
+    handleAddToCart(ev)
+  } else  {
+    // addToWish();
   }
 }
 // показати більше
 export async function handleLoadMore(ev) {
+  const loadMoreBtn = ev.currentTarget;
+  if (!loadMoreBtn) return;
+
   currentPage++;
+  loadMoreBtn.disabled = true;
   hideLoadMoreBtn();
   try {
     let data;
@@ -124,8 +130,11 @@ export async function handleLoadMore(ev) {
       appendProducts(homeProducts, products);
       setTimeout(() => smoothScroll());
       checkEndOfCollection(total, currentPage);
+      loadMoreBtn.disabled = false;
     }
   } catch (error) {
     showErrorMessage('Oops! Something went wrong. Please try again later.');
   }
 }
+
+

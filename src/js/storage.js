@@ -1,2 +1,4 @@
 //Робота з loacalStorage
-export function updateLocalStrage() {}
+export function updateLocalStorage(key ,arr) {
+localStorage.setItem(key, JSON.stringify(arr));
+}
