@@ -1,7 +1,7 @@
 //Описана робота модалки - відкриття закриття і все що з модалкою повʼязано
 import { renderProductById } from './render-function';
 import { refs } from './refs';
-const { modal, addToWishListBtn } = refs;
+const { modal, addToCartBtn } = refs;
 import { handleModalClick } from './handlers';
 import { STORAGE_KEYS } from './constants';
 import { updateLocalStorage } from './storage';
@@ -33,17 +33,21 @@ export function openProductModal(event) {
 }
 
 export function handleAddToCart(ev) {
-  const productId = Number(ev.target.dataset.id);
+  const productId = Number(addToCartBtn.dataset.id);
   console.log(productId);
 
   const idAllProducts = JSON.parse(localStorage.getItem(cart)) ?? [];
   console.log(idAllProducts);
-  const index = idAllProducts.findIndex(id => id === productId);
+  const index = idAllProducts.findIndex(({ id }) => id === productId);
 
   if (index === -1) {
     idAllProducts.push(productId);
 
+    idAllProducts.push({ id: productId, qty: 1 });
+
     console.log(idAllProducts);
+  } else {
+    idAllProducts[index].qty++;
   }
   updateLocalStorage(cart, idAllProducts);
 }
