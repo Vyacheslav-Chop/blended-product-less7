@@ -101,7 +101,7 @@ export async function renderProductById(id) {
     
 
     modalProduct.innerHTML = createProductById(product);
-    addToCartBtn.dataset.id = product.id;    
+    addToCartBtn.dataset.id = product.id;     
   } catch (error) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'
