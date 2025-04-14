@@ -1,0 +1,2 @@
+import{p as s,s as c,r as e,f as n,S as d}from"./assets/helpers-CV-kvwc5.js";import{g as l}from"./assets/storage-B5G7F7KK.js";import"./assets/vendor-CG2pNq4b.js";const{cartProducts:u}=e,{cart:i}=d,o=l(i);console.log(o);async function p(r){return await Promise.all(r.map(async({id:t,qty:a})=>({...await n(t),qty:a})))}p(o).then(r=>{console.log("Products after fetch:",r),u.innerHTML=s(r)}).catch(()=>{c("Failed to load products. Please try again later.")});
+//# sourceMappingURL=cart.js.map
