@@ -22,10 +22,8 @@ import {
   handleAddToWishList,
   handleRemoveFromWishList,
 } from './modal';
-import { STORAGE_KEYS } from './constants';
 
 const { homeCategories, homeProducts, notFoundDiv, form } = refs;
-const { cart, wishlist } = STORAGE_KEYS;
 let query = '';
 let currentPage = 1;
 let category = '';
@@ -93,7 +91,7 @@ export async function searchProduct(event) {
     form.reset();
   }
 }
-// закриття модалки кнопкою
+// слухач на модалку
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const addToCartBtn = ev.target.closest('.modal-product__btn--cart');
