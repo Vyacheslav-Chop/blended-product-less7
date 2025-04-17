@@ -1,35 +1,12 @@
-//Логіка сторінки Wishlist
-
-import { appendProducts } from './js/helpers';
-import { openProductModal } from './js/modal';
-import { fetchProductById } from './js/products-api';
 import { refs } from './js/refs';
-// import { productsMarkUp } from './js/render-function';
-
-const { wishListProducts } = refs;
-const wishlist = JSON.parse(localStorage.getItem('wishlist-products')) ?? [];
-
-// openProductModal();
-
-async function renderWishlist() {
-  if (!wishlist.length) {
-    document.querySelector('.not-found').classList.add('not-found--visible');
-    return;
-  }
-
-  const products = await Promise.all(
-    wishlist.map(async id => await fetchProductById(id))
-  );
-  console.log(products);
-
-  appendProducts(wishListProducts, products);
-}
-renderWishlist();
-
-//  const wishlistItems = JSON.parse(localStorage.getItem(wishlist)) ?? [];
-
-// if (wishlistItems.includes(product.id)) {
-//   addToWishListBtn.textContent = 'Remove from Wishlist';
-// } else {
-//   addToWishListBtn.textContent = 'Add to Wishlist';
-// }
+const { cartSpan, wishlistBtnModal, wishlistProducts, wishlistSpan } = refs;
+import { updateCartIndicator } from './js/helpers';
+import { STORAGE_KEYS } from './js/constants';
+import { renderProductsInWishlist } from './js/render-function';
+import { openProductModal } from './js/modal';
+const { cart, wishlist } = STORAGE_KEYS;
+updateCartIndicator(cartSpan, cart);
+updateCartIndicator(wishlistSpan, wishlist);
+wishlistBtnModal.textContent = 'Remove from Wishlist';
+renderProductsInWishlist();
+wishlistProducts.addEventListener('click', openProductModal);

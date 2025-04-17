@@ -1,12 +1,13 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
-
 import { refs } from './refs';
 import { productsMarkUp } from './render-function';
-
-const { loadMoreBtn, homeProducts } = refs;
-
+const { loadMoreBtn } = refs;
+import { getFromLocalStorage } from './storage';
+import { fetchProductById } from './products-api';
+import { STORAGE_KEYS } from './constants';
+const { cart } = STORAGE_KEYS;
 //Допоміжні функції
 // функція для запиту через бібліотеку
 export async function fetchData(url) {
@@ -39,8 +40,9 @@ export function updateActiveCategoryBtn(container, targetBtn) {
 export function showInfoMessage(message) {
   iziToast.info({
     message,
-    position: 'bottomCenter',
+    position: 'center',
     maxWidth: '400',
+    timeout: 1500,
   });
 }
 // плавний скрол при підвантажені товарів
@@ -83,4 +85,58 @@ export function checkEndOfCollection(total, currentPage) {
 // додавання DOM елементів
 export function appendProducts(element, products) {
   element.insertAdjacentHTML('beforeend', productsMarkUp(products));
+}
+// оновлення індикатору корзини чи бажань
+export function updateCartIndicator(box, key) {
+  if (!box || !key) return;
+
+  const idAllProducts = getFromLocalStorage(key) || [];
+  const totalQty = idAllProducts.reduce((count, { qty }) => count + qty, 0);
+  box.textContent = totalQty;
+}
+// функція для отримання списку продуктів в корзині чи бажаннях
+export async function getProductsWithDetails(key) {
+  try {
+    const idAllProducts = getFromLocalStorage(key);
+    const products = await Promise.all(
+      idAllProducts.map(async ({ id, qty }) => {
+        const product = await fetchProductById(id);
+        return { ...product, qty };
+      })
+    );
+    return products;
+  } catch (error) {
+    showErrorMessage('Failed to load products. Please try again later.');
+    return [];
+  }
+}
+
+export async function getProductsWithDetailsNoQty(key) {
+  try {
+    const idAllProducts = getFromLocalStorage(key);
+    const products = await Promise.all(
+      idAllProducts.map(async ({ id }) => {
+        const product = await fetchProductById(id);
+        return product;
+      })
+    );
+    return products;
+  } catch (error) {
+    showErrorMessage('Failed to load products. Please try again later.');
+    return [];
+  }
+}
+// функція підрахунку вартості
+export async function updateCartSum(box, key) {
+  if (!box || !key) return;
+
+  const products = await getProductsWithDetails(key);
+
+  const totalCent = products.reduce(
+    (total, { price, qty }) => total + price * 100 * qty,
+    0
+  );
+ 
+  const totalPrice = (totalCent / 100).toFixed(2);
+  box.textContent = `$${totalPrice}`;
 }

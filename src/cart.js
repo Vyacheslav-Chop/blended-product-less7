@@ -1,29 +1,26 @@
 //Логіка сторінки Cart
 import { refs } from './js/refs';
-const { cartProducts } = refs;
-import { getFromLocalStorage } from './js/storage';
+const {
+  cartProducts,
+  cartBtnModal,
+  cartItems,
+  cartSpan,
+  cartTotal,
+  wishlistSpan,
+} = refs;
 import { STORAGE_KEYS } from './js/constants';
-import { fetchProductById } from './js/products-api';
-import { productsMarkUp } from './js/render-function';
-import { showErrorMessage } from './js/helpers';
-const { cart } = STORAGE_KEYS;
+import { renderProductsInContainer } from './js/render-function';
+import { updateCartIndicator, updateCartSum } from './js/helpers';
+import { openProductModal } from './js/modal';
+const { cart, wishlist } = STORAGE_KEYS;
 
-const idAllProducts = getFromLocalStorage(cart);
-console.log(idAllProducts);
+updateCartIndicator(cartSpan, cart);
+updateCartIndicator(cartItems, cart);
+updateCartSum(cartTotal, cart);
+updateCartIndicator(wishlistSpan, wishlist);
 
-async function render(idAllProducts) {
-  const products = await Promise.all(
-    idAllProducts.map(async ({ id, qty }) => {
-      const product = await fetchProductById(id);
-      return { ...product, qty };
-    })
-  );
-  return products;
-}
-render(idAllProducts)
-  .then(products => {
-  console.log('Products after fetch:', products);
-  cartProducts.innerHTML = productsMarkUp(products);
-  }).catch(() => {
-    showErrorMessage('Failed to load products. Please try again later.');
-});
+cartBtnModal.textContent = 'Remove from Cart';
+
+renderProductsInContainer(cartProducts, cart);
+
+cartProducts.addEventListener('click', openProductModal);

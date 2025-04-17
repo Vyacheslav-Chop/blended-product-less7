@@ -18,9 +18,10 @@ import {
 import { renderProducts } from './render-function';
 import {
   closeModal,
-  handleAddToCart,
-  handleAddToWishList,
-  handleRemoveFromWishList,
+  addToCart,
+  addToWishList,
+  removeFromWishList,
+  removeFromCart,
 } from './modal';
 
 const { homeCategories, homeProducts, notFoundDiv, form } = refs;
@@ -35,6 +36,7 @@ export async function showProducts(ev) {
   updateActiveCategoryBtn(homeCategories, ev.target);
   currentPage = 1;
   clearContent(homeProducts);
+  hideLoadMoreBtn();
 
   try {
     let data;
@@ -65,6 +67,7 @@ export async function searchProduct(event) {
   event.preventDefault();
   currentPage = 1;
   clearContent(homeProducts);
+  hideLoadMoreBtn();
 
   query = form.elements['searchValue'].value.trim();
   if (!query) {
@@ -94,23 +97,27 @@ export async function searchProduct(event) {
 // слухач на модалку
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
-  const addToCartBtn = ev.target.closest('.modal-product__btn--cart');
-  const addToWishListBtn = ev.target.closest('.modal-product__btn--wishlist');
+  const cartBtnModal = ev.target.closest('.modal-product__btn--cart');
+  const wishlistBtnModal = ev.target.closest('.modal-product__btn--wishlist');
   if (closeBtn) {
     closeModal();
     return;
-  } else if (addToCartBtn) {
-    handleAddToCart(ev);
-    return;
-  } else if (addToWishListBtn) {
-    if (addToWishListBtn.textContent === 'Add to Wishlist') {
-      handleAddToWishList(ev);
-      return;
-    } else if (addToWishListBtn.textContent === 'Remove from Wishlist') {
-      handleRemoveFromWishList(ev);
+  } else if (cartBtnModal) {
+    if (cartBtnModal.textContent.trim() === 'Add to Cart') {
+      addToCart();
+      return
+    } else if (cartBtnModal.textContent.trim() === 'Remove from Cart') {
+      removeFromCart();
       return;
     }
-    return;
+  } else if (wishlistBtnModal) {
+    if (wishlistBtnModal.textContent.trim() === 'Add to Wishlist') {
+      addToWishList();
+      return;
+    } else if (wishlistBtnModal.textContent.trim() === 'Remove from Wishlist') {
+      removeFromWishList();
+      return;
+    }
   }
 }
 // показати більше
