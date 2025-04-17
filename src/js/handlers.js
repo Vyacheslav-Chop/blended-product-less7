@@ -15,7 +15,7 @@ import {
   checkEndOfCollection,
   appendProducts,
 } from './helpers';
-import { renderProducts } from './render-function';
+import { renderProducts, productsMarkUp } from './render-function';
 import {
   closeModal,
   addToCart,
@@ -83,7 +83,7 @@ export async function searchProduct(event) {
       showErrorMessage('Unfortunately, no results were found for this query.');
       return;
     }
-    appendProducts(homeProducts, products);
+    homeProducts.innerHTML = productsMarkUp(products)
     checkEndOfCollection(total, currentPage);
   } catch (error) {
     console.error('An error occurred while searching for products:', error);
@@ -99,6 +99,7 @@ export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const cartBtnModal = ev.target.closest('.modal-product__btn--cart');
   const wishlistBtnModal = ev.target.closest('.modal-product__btn--wishlist');
+  
   if (closeBtn) {
     closeModal();
     return;

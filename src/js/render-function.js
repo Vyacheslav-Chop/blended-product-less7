@@ -10,6 +10,8 @@ import {
   createTags,
   appendProducts,
   checkEndOfCollection,
+  clearContent,
+  toggleNotFoundVisibility,
 } from './helpers';
 import { currentPage } from './constants';
 import { getFromLocalStorage } from './storage';
@@ -22,8 +24,6 @@ const {
   modalProduct,
   cartBtnModal,
   wishlistBtnModal,
-  cartProducts,
-  notFoundDiv,
   wishlistProducts,
 } = refs;
 // функції для рендеру товарів
@@ -73,11 +73,12 @@ export async function renderCategories() {
     const allCategories = ['All', ...categories];
 
     if (allCategories.length === 0) {
-      homeCategories.innerHTML = '';
-      notFoundDiv.classList.add('not-found--visible');
+      clearContent(homeCategories);
+      toggleNotFoundVisibility(true);
       return;
     }
     homeCategories.innerHTML = categoriesMarkUp(allCategories);
+    toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage(
       'Something went wrong while loading categories. Please try again later.'
@@ -114,14 +115,15 @@ export async function renderProductById(id) {
   try {
     const product = await fetchProductById(id);
     if (!product) {
-      modalProduct.innerHTML = '';
-      notFoundDiv.classList.add('not-found--visible');
+      clearContent(modalProduct);
+      toggleNotFoundVisibility(true);
       return;
     }
 
     modalProduct.innerHTML = createProductById(product);
     cartBtnModal.dataset.id = product.id;
     wishlistBtnModal.dataset.id = product.id;
+    toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'
@@ -175,8 +177,8 @@ export async function renderProductByIdSavedItems(id, key) {
   try {
     const product = await fetchProductById(id);
     if (!product) {
-      modalProduct.innerHTML = '';
-      notFoundDiv.classList.add('not-found--visible');
+      clearContent(modalProduct);
+      toggleNotFoundVisibility(true);
       return;
     }
     const productsFromLocal = getFromLocalStorage(key);
@@ -187,6 +189,7 @@ export async function renderProductByIdSavedItems(id, key) {
     modalProduct.innerHTML = createProductByIdSavedItems({ ...product, qty });
     cartBtnModal.dataset.id = product.id;
     wishlistBtnModal.dataset.id = product.id;
+    toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'
@@ -199,12 +202,12 @@ export async function renderProductsInContainer(container, key) {
   try {
     const products = await getProductsWithDetails(key);
     if (products.length === 0) {
-      cartProducts.innerHTML = '';
-      notFoundDiv.classList.add('not-found--visible');
+      clearContent(container);
+      toggleNotFoundVisibility(true);
       return;
     }
     container.innerHTML = productsMarkUpSavedItems(products);
-    notFoundDiv.classList.remove('not-found--visible');
+    toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage('Failed to render products. Please try again later.');
   }
@@ -215,13 +218,13 @@ export async function renderProductsInWishlist() {
     const products = await getProductsWithDetailsNoQty(wishlist);
     console.log(products);
     if (products.length === 0) {
-      wishlistProducts.innerHTML = '';
-      notFoundDiv.classList.add('not-found--visible');
+      clearContent(wishlistProducts);
+      toggleNotFoundVisibility(true);
       return;
     }
 
     wishlistProducts.innerHTML = productsMarkUp(products);
-    notFoundDiv.classList.remove('not-found--visible');
+    toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage('Failed to render products. Please try again later.');
   }

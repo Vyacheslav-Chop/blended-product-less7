@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 import { refs } from './refs';
 import { productsMarkUp } from './render-function';
-const { loadMoreBtn } = refs;
+const { loadMoreBtn, notFoundDiv } = refs;
 import { getFromLocalStorage } from './storage';
 import { fetchProductById } from './products-api';
 import { STORAGE_KEYS } from './constants';
@@ -139,4 +139,12 @@ export async function updateCartSum(box, key) {
  
   const totalPrice = (totalCent / 100).toFixed(2);
   box.textContent = `$${totalPrice}`;
+}
+// функція для контенту якщо нічого не знайдено
+export function toggleNotFoundVisibility(isVisible) {
+  if (isVisible) {
+    notFoundDiv.classList.add('not-found--visible');
+  } else {
+    notFoundDiv.classList.remove('not-found--visible');
+  }
 }

@@ -20,7 +20,10 @@ import { handleModalClick } from './handlers';
 import { STORAGE_KEYS } from './constants';
 import { updateLocalStorage, getFromLocalStorage } from './storage';
 import { showInfoMessage } from './helpers';
-import { renderProductsInContainer, renderProductsInWishlist } from './render-function';
+import {
+  renderProductsInContainer,
+  renderProductsInWishlist,
+} from './render-function';
 import { updateCartIndicator, updateCartSum } from './helpers';
 
 const { cart, wishlist } = STORAGE_KEYS;
@@ -113,18 +116,18 @@ export function addToWishList() {
   console.log(idAllProducts);
   const index = idAllProducts.findIndex(({ id }) => id === productId);
   if (index !== -1) {
-    // wishListBtnModal.textContent = 'Remove from Wishlist';
     showInfoMessage('Product is already in wishlist.');
+    wishlistBtnModal;
     closeModal();
     return;
+  } else {
+    idAllProducts.push({ id: productId, qty: 1 });
+    updateLocalStorage(wishlist, idAllProducts);
+    const totalQty = idAllProducts.reduce((count, { qty }) => count + qty, 0);
+    wishlistSpan.textContent = totalQty;
+    showInfoMessage('Product added to wishList.');
+    closeModal();
   }
-
-  idAllProducts.push({ id: productId, qty: 1 });
-  updateLocalStorage(wishlist, idAllProducts);
-  const totalQty = idAllProducts.reduce((count, { qty }) => count + qty, 0);
-  wishlistSpan.textContent = totalQty;
-  showInfoMessage('Product added to wishList.');
-  closeModal();
 }
 // видалення товару зі списку бажань
 export function removeFromWishList() {
