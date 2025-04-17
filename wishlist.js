@@ -1,2 +1,2 @@
-import{f as r,a,r as e}from"./assets/helpers-CV-kvwc5.js";import"./assets/vendor-CG2pNq4b.js";const{wishListProducts:i}=e,t=JSON.parse(localStorage.getItem("wishlist-products"))??[];async function c(){if(!t.length){document.querySelector(".not-found").classList.add("not-found--visible");return}const s=await Promise.all(t.map(async o=>await r(o)));console.log(s),a(i,s)}c();
+import{u as t,r as s,o as i,a,S as o}from"./assets/modal-k2592HCH.js";import"./assets/vendor-CG2pNq4b.js";const{cartSpan:r,wishlistBtnModal:n,wishlistProducts:e,wishlistSpan:c}=a,{cart:d,wishlist:l}=o;t(r,d);t(c,l);n.textContent="Remove from Wishlist";s();e.addEventListener("click",i);
 //# sourceMappingURL=wishlist.js.map
