@@ -28,8 +28,11 @@ import {
   removeFromWishList,
   removeFromCart,
   openModal,
-  buyProducts,
 } from './modal';
+
+import { saveThemeToLocalStorage } from './storage';
+import { STORAGE_KEYS } from './constants';
+const { cart } = STORAGE_KEYS;
 
 const {
   homeCategories,
@@ -38,6 +41,7 @@ const {
   form,
   cartProducts,
   wishlistProducts,
+  body
 } = refs;
 let query = '';
 let currentPage = 1;
@@ -196,4 +200,16 @@ export async function handleLoadMore(ev) {
   } catch (error) {
     showErrorMessage('Oops! Something went wrong. Please try again later.');
   }
+}
+
+export function handleChangeTheme() {
+  if (body.classList.contains('theme-light')) {
+    body.classList.remove('theme-light');
+    body.classList.add('theme-dark');
+    saveThemeToLocalStorage('theme-dark');
+  } else {
+    body.classList.remove('theme-dark');
+    body.classList.add('theme-light');
+    saveThemeToLocalStorage('theme-light');
+}
 }

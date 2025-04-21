@@ -4,7 +4,10 @@ import { updateCartIndicator } from './js/helpers';
 import { STORAGE_KEYS } from './js/constants';
 import { renderProductsInWishlist } from './js/render-function';
 import { openProductModal } from './js/handlers'; 
+import { applySavedTheme } from './js/theme';
 const { cart, wishlist } = STORAGE_KEYS;
+
+applySavedTheme();
 updateCartIndicator(cartSpan, cart);
 updateCartIndicator(wishlistSpan, wishlist);
 renderProductsInWishlist();

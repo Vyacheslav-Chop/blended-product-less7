@@ -6,6 +6,7 @@ import { updateCartIndicator } from './js/helpers';
 import { STORAGE_KEYS } from './js/constants';
 const { cart, wishlist } = STORAGE_KEYS;
 import { openProductModal } from './js/handlers'; 
+import { applySavedTheme } from './js/theme';
 
 const {
   homeCategories,
@@ -16,6 +17,7 @@ const {
   wishlistSpan,
 } = refs;
 // логіка для початкової сторінки
+applySavedTheme();
 updateCartIndicator(cartSpan, cart);
 updateCartIndicator(wishlistSpan, wishlist);
 renderProducts();

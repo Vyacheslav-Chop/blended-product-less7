@@ -1,5 +1,6 @@
 //Обʼєкт з посиланнями на ДОМ елементи
 export const refs = {
+  body: document.body,
   homeProducts: document.querySelector('.products[data-page="home"]'),
   wishlistProducts: document.querySelector('.products[data-page="wishlist"]'),
   homeCategories: document.querySelector('.categories'),
@@ -15,6 +16,7 @@ export const refs = {
   cartItems: document.querySelector('[data-count]'),
   cartTotal: document.querySelector('[data-price]'),
   wishlistSpan: document.querySelector('[data-wishlist-count]'),
+  changeThemeBtn: document.querySelector('#themeToggle'),
 };
 
 
