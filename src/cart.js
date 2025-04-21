@@ -11,7 +11,7 @@ const {
 import { STORAGE_KEYS } from './js/constants';
 import { renderProductsInContainer } from './js/render-function';
 import { updateCartIndicator, updateCartSum } from './js/helpers';
-import { openProductModal } from './js/modal';
+import { openProductModal } from './js/handlers';
 const { cart, wishlist } = STORAGE_KEYS;
 
 updateCartIndicator(cartSpan, cart);

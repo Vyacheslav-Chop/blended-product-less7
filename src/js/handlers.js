@@ -15,16 +15,30 @@ import {
   checkEndOfCollection,
   appendProducts,
 } from './helpers';
-import { renderProducts, productsMarkUp } from './render-function';
+import {
+  renderProducts,
+  productsMarkUp,
+  renderProductById,
+  renderProductByIdSavedItems,
+} from './render-function';
 import {
   closeModal,
   addToCart,
   addToWishList,
   removeFromWishList,
   removeFromCart,
+  openModal,
+  buyProducts,
 } from './modal';
 
-const { homeCategories, homeProducts, notFoundDiv, form } = refs;
+const {
+  homeCategories,
+  homeProducts,
+  notFoundDiv,
+  form,
+  cartProducts,
+  wishlistProducts,
+} = refs;
 let query = '';
 let currentPage = 1;
 let category = '';
@@ -83,7 +97,7 @@ export async function searchProduct(event) {
       showErrorMessage('Unfortunately, no results were found for this query.');
       return;
     }
-    homeProducts.innerHTML = productsMarkUp(products)
+    homeProducts.innerHTML = productsMarkUp(products);
     checkEndOfCollection(total, currentPage);
   } catch (error) {
     console.error('An error occurred while searching for products:', error);
@@ -94,19 +108,45 @@ export async function searchProduct(event) {
     form.reset();
   }
 }
+
+// відкриття модалки за обраним товаром
+export async function openProductModal(event) {
+  const liElement = event.target.closest('.products__item');
+
+  if (!liElement) {
+    return;
+  }
+  const currentId = Number(liElement.dataset.id);
+
+  if (!currentId || !liElement) {
+    return;
+  }
+
+  if (homeProducts) {
+    await renderProductById(currentId);
+  } else if (cartProducts) {
+    await renderProductByIdSavedItems(currentId, cart);
+  } else if (wishlistProducts) {
+    await renderProductById(currentId);
+  }
+
+  openModal();
+}
+
 // слухач на модалку
 export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const cartBtnModal = ev.target.closest('.modal-product__btn--cart');
   const wishlistBtnModal = ev.target.closest('.modal-product__btn--wishlist');
-  
+  const modalBtnBuy = document.querySelector('.modal-product__buy-btn');
+
   if (closeBtn) {
     closeModal();
     return;
   } else if (cartBtnModal) {
     if (cartBtnModal.textContent.trim() === 'Add to Cart') {
       addToCart();
-      return
+      return;
     } else if (cartBtnModal.textContent.trim() === 'Remove from Cart') {
       removeFromCart();
       return;
@@ -119,6 +159,7 @@ export function handleModalClick(ev) {
       removeFromWishList();
       return;
     }
+  } else if (modalBtnBuy) {
   }
 }
 // показати більше

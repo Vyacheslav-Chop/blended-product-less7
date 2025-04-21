@@ -184,6 +184,29 @@
   box-shadow: 0 4px 12px rgba(255, 107, 10, 0.1);
 }
 
+.modal-product__buy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 1rem 2rem;
+
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ff6b0a;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.modal-product__buy-btn:hover {
+  background: #e05a00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 10, 0.2);
+}
+
 /* Іконки для кнопок */
 .modal-product__btn::before {
   content: '';

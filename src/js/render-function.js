@@ -214,6 +214,7 @@ export async function renderProductsInContainer(container, key) {
 }
 
 export async function renderProductsInWishlist() {
+  if (!wishlistProducts) return;
   try {
     const products = await getProductsWithDetailsNoQty(wishlist);
     console.log(products);

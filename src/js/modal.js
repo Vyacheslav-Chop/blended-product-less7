@@ -1,8 +1,4 @@
 //Описана робота модалки - відкриття закриття і все що з модалкою повʼязано
-import {
-  renderProductById,
-  renderProductByIdSavedItems,
-} from './render-function';
 import { refs } from './refs';
 const {
   modal,
@@ -13,8 +9,7 @@ const {
   cartItems,
   cartTotal,
   wishlistSpan,
-  wishlistProducts,
-  homeProducts,
+
 } = refs;
 import { handleModalClick } from './handlers';
 import { STORAGE_KEYS } from './constants';
@@ -27,10 +22,19 @@ import {
 import { updateCartIndicator, updateCartSum } from './helpers';
 
 const { cart, wishlist } = STORAGE_KEYS;
-
 // відкриття модалки
 export function openModal() {
   modal.classList.add('modal--is-open');
+  const productId = Number(wishlistBtnModal.dataset.id);
+
+  const idAllProducts = getFromLocalStorage(wishlist);
+
+  const index = idAllProducts.findIndex(({ id }) => id === productId);
+  if (index !== -1) {
+    wishlistBtnModal.textContent = 'Remove from Wishlist';
+  } else {
+    wishlistBtnModal.textContent = 'Add to Wishlist';
+  }
   modal.addEventListener('click', handleModalClick);
 }
 
@@ -40,41 +44,17 @@ export function closeModal() {
   modal.removeEventListener('click', handleModalClick);
 }
 
-// відкриття модалки за обраним товаром
-export function openProductModal(event) {
-  const liElement = event.target.closest('.products__item');
-  if (!liElement) {
-    return;
-  }
-  const currentId = Number(liElement.dataset.id);
-
-  if (!currentId || !liElement) {
-    return;
-  }
-
-  if (homeProducts) {
-    renderProductById(currentId);
-  } else if (cartProducts) {
-    renderProductByIdSavedItems(currentId, cart);
-  } else if (wishlistProducts) {
-    renderProductById(currentId);
-  }
-
-  openModal();
-}
 // додавання товару до кошику
 export function addToCart() {
   const productId = Number(cartBtnModal.dataset.id);
-  console.log(productId);
 
   const idAllProducts = getFromLocalStorage(cart);
-  console.log(idAllProducts);
+
   const index = idAllProducts.findIndex(({ id }) => id === productId);
 
   if (index === -1) {
     idAllProducts.push({ id: productId, qty: 1 });
 
-    console.log(idAllProducts);
   } else {
     idAllProducts[index].qty++;
   }
@@ -110,14 +90,12 @@ export function removeFromCart() {
 // додавання товару до списку бажань
 export function addToWishList() {
   const productId = Number(wishlistBtnModal.dataset.id);
-  console.log(productId);
 
   const idAllProducts = getFromLocalStorage(wishlist);
-  console.log(idAllProducts);
+
   const index = idAllProducts.findIndex(({ id }) => id === productId);
   if (index !== -1) {
     showInfoMessage('Product is already in wishlist.');
-    wishlistBtnModal;
     closeModal();
     return;
   } else {
@@ -143,4 +121,8 @@ export function removeFromWishList() {
   closeModal();
   updateCartIndicator(wishlistSpan, wishlist);
   renderProductsInWishlist();
+}
+
+export function buyProducts() {
+
 }

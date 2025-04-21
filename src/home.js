@@ -5,7 +5,7 @@ import { showProducts, searchProduct, handleLoadMore } from './js/handlers';
 import { updateCartIndicator } from './js/helpers';
 import { STORAGE_KEYS } from './js/constants';
 const { cart, wishlist } = STORAGE_KEYS;
-import { openProductModal } from './js/modal';
+import { openProductModal } from './js/handlers'; 
 
 const {
   homeCategories,
