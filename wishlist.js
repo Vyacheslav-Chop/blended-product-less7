@@ -1,2 +1,2 @@
-import{u as s,r as t,o as a,a as r,S as i}from"./assets/handlers-DvtijHIq.js";import"./assets/vendor-CG2pNq4b.js";const{cartSpan:o,wishlistProducts:c,wishlistSpan:n}=r,{cart:d,wishlist:e}=i;s(o,d);s(n,e);t();c.addEventListener("click",a);
+import{a,u as s,r as t,o as r,b as i,S as o}from"./assets/theme-BdazK3U-.js";import"./assets/vendor-CG2pNq4b.js";const{cartSpan:e,wishlistProducts:c,wishlistSpan:d}=i,{cart:n,wishlist:p}=o;a();s(e,n);s(d,p);t();c.addEventListener("click",r);
 //# sourceMappingURL=wishlist.js.map
