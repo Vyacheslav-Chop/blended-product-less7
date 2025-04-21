@@ -1,0 +1,25 @@
+.go-top {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%;
+    
+    color: rgba(0, 51, 153, 0.5);
+    border: 1px solid rgba(0, 51, 153, 0.5) ;
+    background-color: rgba(0, 51, 153, 0.1);
+    display: none;
+}
+
+.go-top--show {
+    display: block;
+}
+
+.go-top:hover {   
+    color: rgba(0, 51, 153, 0.8);
+    border: 1px solid rgba(0, 51, 153, 0.8) ;
+    background-color: rgba(0, 51, 153, 0.2);
+}
