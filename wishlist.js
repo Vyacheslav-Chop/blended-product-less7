@@ -1,2 +1,2 @@
-import{u as t,r as s,o as i,a,S as o}from"./assets/modal-BZq91Tdd.js";import"./assets/vendor-CG2pNq4b.js";const{cartSpan:r,wishlistBtnModal:n,wishlistProducts:e,wishlistSpan:c}=a,{cart:d,wishlist:l}=o;t(r,d);t(c,l);n.textContent="Remove from Wishlist";s();e.addEventListener("click",i);
+import{u as s,r as t,o as a,a as r,S as i}from"./assets/handlers-DvtijHIq.js";import"./assets/vendor-CG2pNq4b.js";const{cartSpan:o,wishlistProducts:c,wishlistSpan:n}=r,{cart:d,wishlist:e}=i;s(o,d);s(n,e);t();c.addEventListener("click",a);
 //# sourceMappingURL=wishlist.js.map
