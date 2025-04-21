@@ -41,7 +41,8 @@ const {
   form,
   cartProducts,
   wishlistProducts,
-  body
+  body,
+  goTopBtn
 } = refs;
 let query = '';
 let currentPage = 1;
@@ -212,4 +213,22 @@ export function handleChangeTheme() {
     body.classList.add('theme-light');
     saveThemeToLocalStorage('theme-light');
 }
+}
+
+export function trackScroll() {
+  const Offset = window.pageYOffset;
+  // вичисляєм висоту вікна браузера
+  const coords = document.documentElement.clientHeight;
+  if (Offset > coords) {
+    goTopBtn.classList.add('go-top--show');
+  } else {
+    goTopBtn.classList.remove('go-top--show');
+  }
+}
+
+export function goTop() {
+  if (window.pageYOffset > 0) {
+    window.scrollBy(0, -75);
+    setTimeout(goTop, 0);
+  }
 }

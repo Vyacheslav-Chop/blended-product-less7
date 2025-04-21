@@ -17,7 +17,7 @@ export const refs = {
   cartTotal: document.querySelector('[data-price]'),
   wishlistSpan: document.querySelector('[data-wishlist-count]'),
   changeThemeBtn: document.querySelector('#themeToggle'),
+  goTopBtn: document.querySelector('.go-top'),
 };
 
-
-
+ 

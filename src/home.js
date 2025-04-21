@@ -5,7 +5,7 @@ import { showProducts, searchProduct, handleLoadMore } from './js/handlers';
 import { updateCartIndicator } from './js/helpers';
 import { STORAGE_KEYS } from './js/constants';
 const { cart, wishlist } = STORAGE_KEYS;
-import { openProductModal } from './js/handlers'; 
+import { openProductModal, goTop, trackScroll } from './js/handlers';
 import { applySavedTheme } from './js/theme';
 
 const {
@@ -15,6 +15,7 @@ const {
   loadMoreBtn,
   cartSpan,
   wishlistSpan,
+  goTopBtn,
 } = refs;
 // логіка для початкової сторінки
 applySavedTheme();
@@ -27,3 +28,6 @@ homeCategories.addEventListener('click', showProducts);
 form.addEventListener('submit', searchProduct);
 homeProducts.addEventListener('click', openProductModal);
 loadMoreBtn.addEventListener('click', handleLoadMore);
+
+goTopBtn.addEventListener('click', goTop);
+window.addEventListener('scroll', trackScroll);

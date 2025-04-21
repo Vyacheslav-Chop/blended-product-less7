@@ -7,11 +7,12 @@ const {
   cartSpan,
   cartTotal,
   wishlistSpan,
+  goTopBtn,
 } = refs;
 import { STORAGE_KEYS } from './js/constants';
 import { renderProductsInContainer } from './js/render-function';
 import { updateCartIndicator, updateCartSum } from './js/helpers';
-import { openProductModal } from './js/handlers';
+import { openProductModal, goTop, trackScroll } from './js/handlers';
 import { applySavedTheme } from './js/theme';
 const { cart, wishlist } = STORAGE_KEYS;
 
@@ -26,3 +27,5 @@ cartBtnModal.textContent = 'Remove from Cart';
 renderProductsInContainer(cartProducts, cart);
 
 cartProducts.addEventListener('click', openProductModal);
+goTopBtn.addEventListener('click', goTop);
+window.addEventListener('scroll', trackScroll);
