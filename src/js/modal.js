@@ -129,7 +129,7 @@ export function modalBuyAction(button) {
   try {
     addToCart(button);
     closeModal();
-    window.location.href = '/cart.html';
+    window.location.href = './cart.html';
   } catch (error) {
     console.error('Error during modalBuyAction:', error);
     showErrorMessage('Failed to add product to cart. Please try again.');
