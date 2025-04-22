@@ -121,6 +121,9 @@ export async function renderProductById(id) {
     }
 
     modalProduct.innerHTML = createProductById(product);
+    const modalBuyBtn = modalProduct.querySelector('.modal-product__buy-btn');
+    modalBuyBtn.dataset.id = product.id;
+    console.log(modalBuyBtn);
     cartBtnModal.dataset.id = product.id;
     wishlistBtnModal.dataset.id = product.id;
     toggleNotFoundVisibility(false);
@@ -169,7 +172,6 @@ function createProductByIdSavedItems(product) {
         <p class="modal-product__return-policy">Return Policy: ${returnPolicy}</p>
         <p class="modal-product__price">Price: $${price}</p>
         <p class="modal-product__quantity">Quantity: ${qty}</p>
-        <button class="modal-product__buy-btn" type="button">Buy</button>
       </div>`;
 }
 // рендер модалки (відмалювання)
@@ -184,9 +186,10 @@ export async function renderProductByIdSavedItems(id, key) {
     const productsFromLocal = getFromLocalStorage(key);
     const itemInLocal = productsFromLocal.find(item => item.id === id);
     const qty = itemInLocal?.qty || 1;
-    console.log(product);
+
 
     modalProduct.innerHTML = createProductByIdSavedItems({ ...product, qty });
+     
     cartBtnModal.dataset.id = product.id;
     wishlistBtnModal.dataset.id = product.id;
     toggleNotFoundVisibility(false);

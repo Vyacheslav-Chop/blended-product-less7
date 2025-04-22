@@ -14,7 +14,7 @@ const {
 import { handleModalClick, handleKeyDown } from './handlers';
 import { STORAGE_KEYS } from './constants';
 import { updateLocalStorage, getFromLocalStorage } from './storage';
-import { showInfoMessage } from './helpers';
+import { showErrorMessage, showInfoMessage } from './helpers';
 import {
   renderProductsInContainer,
   renderProductsInWishlist,
@@ -47,8 +47,8 @@ export function closeModal() {
 }
 
 // додавання товару до кошику
-export function addToCart() {
-  const productId = Number(cartBtnModal.dataset.id);
+export function addToCart(button) {
+  const productId = Number(button.dataset.id);
 
   const idAllProducts = getFromLocalStorage(cart);
 
@@ -125,6 +125,13 @@ export function removeFromWishList() {
   renderProductsInWishlist();
 }
 
-export function buyProducts() {
-
+export function modalBuyAction(button) {
+  try {
+    addToCart(button);
+    closeModal();
+    window.location.href = '../cart.html';
+  } catch (error) {
+    console.error('Error during modalBuyAction:', error);
+    showErrorMessage('Failed to add product to cart. Please try again.');
+  }
 }

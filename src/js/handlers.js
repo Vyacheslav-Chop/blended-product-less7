@@ -28,6 +28,7 @@ import {
   removeFromWishList,
   removeFromCart,
   openModal,
+  modalBuyAction,
 } from './modal';
 
 import { saveThemeToLocalStorage } from './storage';
@@ -43,6 +44,7 @@ const {
   wishlistProducts,
   body,
   goTopBtn,
+  modalProduct,
 } = refs;
 let query = '';
 let currentPage = 1;
@@ -143,7 +145,7 @@ export function handleModalClick(ev) {
   const closeBtn = ev.target.closest('.modal__close-btn');
   const cartBtnModal = ev.target.closest('.modal-product__btn--cart');
   const wishlistBtnModal = ev.target.closest('.modal-product__btn--wishlist');
-  const modalBtnBuy = document.querySelector('.modal-product__buy-btn');
+  const modalBuyBtn = modalProduct.querySelector('.modal-product__buy-btn');
 
   if (ev.target === ev.currentTarget) {
     closeModal();
@@ -155,7 +157,7 @@ export function handleModalClick(ev) {
     return;
   } else if (cartBtnModal) {
     if (cartBtnModal.textContent.trim() === 'Add to Cart') {
-      addToCart();
+      addToCart(cartBtnModal);
       return;
     } else if (cartBtnModal.textContent.trim() === 'Remove from Cart') {
       removeFromCart();
@@ -169,7 +171,9 @@ export function handleModalClick(ev) {
       removeFromWishList();
       return;
     }
-  } else if (modalBtnBuy) {
+  } else if (modalBuyBtn) {
+    modalBuyAction(modalBuyBtn);
+    return;
   }
 }
 // показати більше
