@@ -6,8 +6,6 @@ import { productsMarkUp } from './render-function';
 const { loadMoreBtn, notFoundDiv } = refs;
 import { getFromLocalStorage } from './storage';
 import { fetchProductById } from './products-api';
-import { STORAGE_KEYS } from './constants';
-const { cart } = STORAGE_KEYS;
 //Допоміжні функції
 // функція для запиту через бібліотеку
 export async function fetchData(url) {
@@ -71,15 +69,12 @@ export function hideLoadMoreBtn() {
 }
 // перевірка чи лишився ще товар для підвантаження
 export function checkEndOfCollection(total, currentPage) {
-  console.log(`Current page: ${currentPage}, Total: ${total}`);
 
   if (currentPage * 12 >= total) {
     showInfoMessage('There are no more products to load at the moment.');
     hideLoadMoreBtn();
-    console.log('No more products to load. Button hidden.');
   } else {
     showLoadMoreBtn();
-    console.log('More products available. Button shown.');
   }
 }
 // додавання DOM елементів
@@ -136,38 +131,13 @@ export async function updateCartSum(box, key) {
     (total, { price, qty }) => total + price * 100 * qty,
     0
   );
- 
+
   const totalPrice = (totalCent / 100).toFixed(2);
   box.textContent = `$${totalPrice}`;
 }
-// функція для контенту якщо нічого не знайдено
+// функція для контенту якщо нічого не знайдено (в якості аргумента використовується true або false)
 export function toggleNotFoundVisibility(isVisible) {
-  if (isVisible) {
-    notFoundDiv.classList.add('not-found--visible');
-  } else {
-    notFoundDiv.classList.remove('not-found--visible');
-  }
+  isVisible
+    ? notFoundDiv.classList.add('not-found--visible')
+    : notFoundDiv.classList.remove('not-found--visible');
 }
-
-// const goTopBtn = document.querySelector(".go-top");
-
-// goTopBtn.addEventListener("click", goTop);
-// window.addEventListener("scroll", trackScroll);
-
-// function trackScroll() {
-//   const Offset = window.pageYOffset;
-//   // вичисляєм висоту вікна браузера
-//   const coords = document.documentElement.clientHeight;  
-//   if (Offset > coords) {
-//     goTopBtn.classList.add("go-top--show");
-//   } else {
-//     goTopBtn.classList.remove("go-top--show");
-//   }
-// }
-
-// function goTop() {
-//   if (window.pageYOffset > 0) {
-//     window.scrollBy(0, -75);
-//     setTimeout(goTop, 0);
-//   }
-// }

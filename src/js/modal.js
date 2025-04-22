@@ -11,7 +11,7 @@ const {
   wishlistSpan,
 
 } = refs;
-import { handleModalClick } from './handlers';
+import { handleModalClick, handleKeyDown } from './handlers';
 import { STORAGE_KEYS } from './constants';
 import { updateLocalStorage, getFromLocalStorage } from './storage';
 import { showInfoMessage } from './helpers';
@@ -36,12 +36,14 @@ export function openModal() {
     wishlistBtnModal.textContent = 'Add to Wishlist';
   }
   modal.addEventListener('click', handleModalClick);
+  window.addEventListener('keydown', handleKeyDown);
 }
 
 // закриття модалки
 export function closeModal() {
   modal.classList.remove('modal--is-open');
   modal.removeEventListener('click', handleModalClick);
+  window.removeEventListener('keydown', handleKeyDown);
 }
 
 // додавання товару до кошику

@@ -1,11 +1,17 @@
 //Логіка сторінки Home
 import { renderProducts, renderCategories } from './js/render-function';
 import { refs } from './js/refs';
-import { showProducts, searchProduct, handleLoadMore } from './js/handlers';
+import {
+  showProducts,
+  searchProduct,
+  handleLoadMore,
+  openProductModal,
+  goTop,
+  trackScroll,
+} from './js/handlers';
 import { updateCartIndicator } from './js/helpers';
 import { STORAGE_KEYS } from './js/constants';
 const { cart, wishlist } = STORAGE_KEYS;
-import { openProductModal, goTop, trackScroll } from './js/handlers';
 import { applySavedTheme } from './js/theme';
 
 const {

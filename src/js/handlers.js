@@ -42,7 +42,7 @@ const {
   cartProducts,
   wishlistProducts,
   body,
-  goTopBtn
+  goTopBtn,
 } = refs;
 let query = '';
 let currentPage = 1;
@@ -145,6 +145,11 @@ export function handleModalClick(ev) {
   const wishlistBtnModal = ev.target.closest('.modal-product__btn--wishlist');
   const modalBtnBuy = document.querySelector('.modal-product__buy-btn');
 
+  if (ev.target === ev.currentTarget) {
+    closeModal();
+    return;
+  }
+
   if (closeBtn) {
     closeModal();
     return;
@@ -205,14 +210,12 @@ export async function handleLoadMore(ev) {
 
 export function handleChangeTheme() {
   if (body.classList.contains('theme-light')) {
-    body.classList.remove('theme-light');
-    body.classList.add('theme-dark');
+    body.classList.replace('theme-light', 'theme-dark');
     saveThemeToLocalStorage('theme-dark');
   } else {
-    body.classList.remove('theme-dark');
-    body.classList.add('theme-light');
+    body.classList.replace('theme-dark', 'theme-light');
     saveThemeToLocalStorage('theme-light');
-}
+  }
 }
 
 export function trackScroll() {
@@ -230,5 +233,11 @@ export function goTop() {
   if (window.pageYOffset > 0) {
     window.scrollBy(0, -75);
     setTimeout(goTop, 0);
+  }
+}
+
+export function handleKeyDown(ev) {
+  if (ev.key === 'Escape') {
+    closeModal();
   }
 }
