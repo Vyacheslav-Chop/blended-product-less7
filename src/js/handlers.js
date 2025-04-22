@@ -86,15 +86,16 @@ export async function showProducts(ev) {
 // пошук продуктів форми пошуку
 export async function searchProduct(event) {
   event.preventDefault();
+
+   query = form.elements['searchValue'].value.trim();
+   if (!query) {
+     showErrorMessage('Please fill in the search field!');
+     return;
+  }
+  
   currentPage = 1;
   clearContent(homeProducts);
   hideLoadMoreBtn();
-
-  query = form.elements['searchValue'].value.trim();
-  if (!query) {
-    showErrorMessage('Please fill in the search field!');
-    return;
-  }
 
   try {
     const { products, total } = await fetchSearchResults(query, currentPage);
