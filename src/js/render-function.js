@@ -117,6 +117,7 @@ function createProductById(product) {
 }
 
 export async function renderProductById(id) {
+  showLoader();
   try {
     const product = await fetchProductById(id);
     if (!product) {
@@ -136,6 +137,8 @@ export async function renderProductById(id) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'
     );
+  } finally {
+    hideLoader();
   }
 }
 // створення розмітки для карти чи бажань
@@ -181,6 +184,7 @@ function createProductByIdSavedItems(product) {
 }
 // рендер модалки (відмалювання)
 export async function renderProductByIdSavedItems(id, key) {
+  showLoader();
   try {
     const product = await fetchProductById(id);
     if (!product) {
@@ -202,6 +206,8 @@ export async function renderProductByIdSavedItems(id, key) {
     showErrorMessage(
       'Failed to load product information. Please try again later.'
     );
+  } finally {
+    hideLoader();
   }
 }
 
@@ -223,6 +229,7 @@ export async function renderProductsInContainer(container, key) {
 
 export async function renderProductsInWishlist() {
   if (!wishlistProducts) return;
+  showLoader();
   try {
     const products = await getProductsWithDetailsNoQty(wishlist);
     console.log(products);
@@ -236,5 +243,7 @@ export async function renderProductsInWishlist() {
     toggleNotFoundVisibility(false);
   } catch (error) {
     showErrorMessage('Failed to render products. Please try again later.');
+  } finally {
+    hideLoader();
   }
 }

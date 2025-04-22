@@ -14,6 +14,8 @@ import {
   hideLoadMoreBtn,
   checkEndOfCollection,
   appendProducts,
+  showLoader,
+  hideLoader,
 } from './helpers';
 import {
   renderProducts,
@@ -58,6 +60,7 @@ export async function showProducts(ev) {
   currentPage = 1;
   clearContent(homeProducts);
   hideLoadMoreBtn();
+  showLoader();
 
   try {
     let data;
@@ -81,6 +84,8 @@ export async function showProducts(ev) {
     showErrorMessage(
       "Oops! Couldn't fetch products. Check your connection or try again."
     );
+  } finally {
+    hideLoader();
   }
 }
 // пошук продуктів форми пошуку
@@ -89,6 +94,7 @@ export async function searchProduct(event) {
   currentPage = 1;
   clearContent(homeProducts);
   hideLoadMoreBtn();
+  showLoader();
 
   query = form.elements['searchValue'].value.trim();
   if (!query) {
@@ -112,6 +118,7 @@ export async function searchProduct(event) {
       'An error occurred while searching for products. Please try again later.'
     );
   } finally {
+    hideLoader();
     form.reset();
   }
 }
@@ -184,6 +191,8 @@ export async function handleLoadMore(ev) {
   currentPage++;
   loadMoreBtn.disabled = true;
   hideLoadMoreBtn();
+  showLoader();
+
   try {
     let data;
     if (query) {
@@ -209,6 +218,8 @@ export async function handleLoadMore(ev) {
     }
   } catch (error) {
     showErrorMessage('Oops! Something went wrong. Please try again later.');
+  } finally {
+    hideLoader();
   }
 }
 
