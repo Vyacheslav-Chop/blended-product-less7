@@ -12,6 +12,8 @@ import {
   checkEndOfCollection,
   clearContent,
   toggleNotFoundVisibility,
+  hideLoader,
+  showLoader,
 } from './helpers';
 import { currentPage } from './constants';
 import { getFromLocalStorage } from './storage';
@@ -43,6 +45,7 @@ export function productsMarkUp(products) {
 }
 
 export async function renderProducts() {
+  showLoader();
   try {
     const { products, total } = await fetchProducts(currentPage);
     appendProducts(homeProducts, products);
@@ -51,6 +54,8 @@ export async function renderProducts() {
     showErrorMessage(
       'Something went wrong while loading products. Please try again later.'
     );
+  } finally {
+    hideLoader();
   }
 }
 

@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 import { refs } from './refs';
 import { productsMarkUp } from './render-function';
-const { loadMoreBtn, notFoundDiv } = refs;
+const { loadMoreBtn, notFoundDiv, loader } = refs;
 import { getFromLocalStorage } from './storage';
 import { fetchProductById } from './products-api';
 //Допоміжні функції
@@ -140,4 +140,12 @@ export function toggleNotFoundVisibility(isVisible) {
   isVisible
     ? notFoundDiv.classList.add('not-found--visible')
     : notFoundDiv.classList.remove('not-found--visible');
+}
+
+export function showLoader() {
+  loader.style.display = 'block';
+}
+
+export function hideLoader() {
+  loader.style.display = 'none';
 }

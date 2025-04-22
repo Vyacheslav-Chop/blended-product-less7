@@ -18,6 +18,7 @@ export const refs = {
   wishlistSpan: document.querySelector('[data-wishlist-count]'),
   changeThemeBtn: document.querySelector('#themeToggle'),
   goTopBtn: document.querySelector('.go-top'),
+  loader: document.querySelector('.loader'),
 };
 
  
