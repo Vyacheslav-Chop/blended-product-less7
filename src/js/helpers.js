@@ -92,6 +92,7 @@ export function updateCartIndicator(box, key) {
 // функція для отримання списку продуктів в корзині чи бажаннях
 export async function getProductsWithDetails(key) {
   try {
+    showLoader();
     const idAllProducts = getFromLocalStorage(key);
     const products = await Promise.all(
       idAllProducts.map(async ({ id, qty }) => {
@@ -103,6 +104,8 @@ export async function getProductsWithDetails(key) {
   } catch (error) {
     showErrorMessage('Failed to load products. Please try again later.');
     return [];
+  } finally {
+    hideLoader();
   }
 }
 
